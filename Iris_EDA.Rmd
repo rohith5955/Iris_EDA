@@ -1,0 +1,161 @@
+---
+title: "Iris EDA"
+output: html_notebook
+---
+
+This is an R Markdown Notebook with Exploratory Data Analysis on the iris dataset.
+The goal of this analysis to to understand the dataset by erxploring values under each of the categories of flowers.
+This Exploratory Data Analysis helps in understanding and preparing the dataset for applying Machine Learning algorithms.
+
+
+# 1. Dataset Description
+
+Iris dataset was introduced by Ronald Fisher, a British Biologist in 1936. The data set has 150 observations, around 50 for each species of Iris - setosa, virginica and versicolor. There are 4 features measured on each sample - length and the width of sepal and petal, in centimeters. Fisher built a linear discriminant model to distinguish the species using the 4 features.
+
+
+The Iris flowers
+![Iris dataset](iris-images.png)
+
+
+
+Measured features 
+
+![Iris features](iris-features.jpg)
+
+Reading the data set from csv file or load from the datasets built-in with the R installation.
+
+```{r}
+data(iris)
+```
+
+
+
+View the loaded iris dataset
+
+```{r}
+iris
+```
+
+
+```{r}
+colnames(iris)
+```
+
+```{r}
+str(iris)
+```
+
+
+Dimensionality of the data - 150 observations (rows) and 5 variables (columns).
+
+
+# 2. Summary Statistics
+
+```{r}
+summary(iris)
+```
+
+
+Standard deviation on the 4 numeric variables.
+```{r}
+apply(iris[,1:4], 2, sd)
+```
+
+
+Aggregate statistics by species
+
+```{r}
+# Mean by species
+
+aggregate(.~Species, iris, mean)
+```
+
+
+```{r}
+# Standard Deviation by species
+
+aggregate(.~Species, iris, sd)
+
+```
+
+
+# 3. Visualizations
+
+## 3.1 Histogram
+
+Using Sepal length for the visualizations.
+
+```{r}
+hist(iris$Sepal.Length, col="red", breaks=20)
+
+```
+
+
+## 3.2 Density plot
+
+```{r}
+plot(density(iris$Sepal.Length))
+
+```
+
+
+
+## 3.3 Box Plot
+
+3.3.1 Box plot of species over Petal length
+
+```{r}
+boxplot(Petal.Length~Species,data=iris,col="orange",main="Petal Length Box Plot",ylab="Plot Length",xlab="Plot Width")
+```
+
+
+3.3.2 Box plot of the numeric features in the data set
+
+```{r}
+boxplot(iris[,1:4], notch=T, col=c("pink", "green", "blue", "orange"))
+
+```
+
+
+
+## 3.4 Scatter Plot
+
+3.4.1 Scatter plot of Petal length and width and distinguishing species by color
+
+```{r}
+plot(iris$Petal.Length, iris$Petal.Width, pch=21,bg=c("red","green","blue")[unclass(iris$Species)], main="Iris Data Scatter Plot", xlab="Petal Length", ylab="Petal Width")
+
+legend("topleft", legend=c("Setosa","Versicolor", "Virginica"), fill=c("red","green","blue"), cex = 0.9)
+
+```
+
+
+3.4.2 Scatter plot matrix
+
+```{r}
+pairs(iris[,1:4])
+
+```
+
+
+
+
+## 3.5 Violin Plot
+
+```{r}
+library(vioplot)
+
+vioplot(iris$Petal.Length[iris$Species=="setosa"], iris$Petal.Length[iris$Species=="versicolor"], iris$Petal.Length[iris$Species=="virginica"], names=c("setosa", "versicolor", "virginica"), main = "Petal Length Violin Plot")
+
+```
+
+
+## 3.6 Parallel Coordinates
+
+```{r}
+library(MASS)
+
+parcoord(iris[,1:4],col=iris$Species)
+
+```
+
