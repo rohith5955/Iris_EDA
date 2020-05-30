@@ -6,3 +6,5 @@ This is an R Markdown Notebook with Exploratory Data Analysis on the iris datase
 ### Dataset Description
 
 Iris dataset was introduced by Ronald Fisher, a British Biologist in 1936. The data set has 150 observations, around 50 for each species of Iris - setosa, virginica and versicolor. There are 4 features measured on each sample - length and the width of sepal and petal, in centimeters. Fisher built a linear discriminant model to distinguish the species using the 4 features.
+
+NOTE: This is a R Markdown project. Open the HTML page to view the project.
